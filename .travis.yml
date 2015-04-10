@@ -2,4 +2,4 @@ language: java
 jdk:
   - openjdk7
 
-script: mvn cobertura:cobertura coveralls:report -DrepoToken=repoToken
+script: mvn cobertura:cobertura coveralls:report -DrepoToken=$repoToken
