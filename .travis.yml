@@ -2,4 +2,18 @@ language: java
 jdk:
   - openjdk7
 
-script: mvn test
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "WqyQFAvgyEnZ4bw5tNzPAsHKcINXMHJlFOqw9eNDepjoUSFLBfaQ9FgZPfliEMgnUwwrva3wQBMoTQoo9/auCyODFoIGFvSE1ozR9eExEqep7EaBUZLcXoQLGuSERLFjdw+SKI/fivbg/qxa5MTmrmDh+lkhICN68iaU3Et0DuQ="
+
+addons:
+  coverity_scan:
+    project:
+      name: "gkiko/MovieTable"
+      description: "Provide web service to acquire movie http stream by imdb id"
+    notification_email: gkiko10@freeuni.edu.ge
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn test package"
+    branch_pattern: coverity_scan
