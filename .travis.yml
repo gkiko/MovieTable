@@ -7,4 +7,4 @@ script: mvn cobertura:cobertura coveralls:report -DrepoToken=$repoToken
 deploy:
   provider: heroku
   api_key: $herokuToken
-  app: kuku-todo-core
+  app: movie-table
