@@ -13,7 +13,7 @@ public class MovieDo {
     private String imdbId;
 
     @XmlElement
-    private String url;
+    private String source;
 
     @XmlElement
     private String quality;
@@ -38,11 +38,11 @@ public class MovieDo {
     }
 
     public String getSource() {
-        return url;
+        return source;
     }
 
     public void setSource(String url) {
-        this.url = url;
+        this.source = url;
     }
 
     public String getQuality() {
