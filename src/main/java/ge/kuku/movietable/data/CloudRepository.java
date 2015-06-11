@@ -1,5 +1,6 @@
 package ge.kuku.movietable.data;
 
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class CloudRepository implements Repository {
 
-    static AmazonDynamoDBClient client = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
+    static AmazonDynamoDBClient client = new AmazonDynamoDBClient(new EnvironmentVariableCredentialsProvider());
 
     public CloudRepository() {
         client.setRegion(Region.getRegion(Regions.US_WEST_2));
