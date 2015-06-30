@@ -21,6 +21,9 @@ public class MovieDo {
     @XmlElement
     private String language;
 
+    @XmlElement
+    private String name;
+
     public String getId() {
         return id;
     }
@@ -59,5 +62,13 @@ public class MovieDo {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
