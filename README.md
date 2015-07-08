@@ -4,3 +4,5 @@
 [![Coverage Status](https://coveralls.io/repos/gkiko/MovieTable/badge.svg?branch=master)](https://coveralls.io/r/gkiko/MovieTable?branch=master)
 
 Provide web service to acquire movie http stream by imdb id
+
+apiary: http://docs.movietable1.apiary.io/#
