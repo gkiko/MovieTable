@@ -1,0 +1,46 @@
+FORMAT: 1A
+HOST: http://movie-table.herokuapp.com/webapi/
+
+# movie-table
+
+MovieTable allows users to get video http source stored in table storage. If no record is found, empty json array is returned
+
+# MovieTable API Root [/]
+
+This resource takes in and produces JSON data. If not data matches the parameters, http error code is returned.
+
+
+## Retrieve data [/parse/{movie_id}]
+
+A Movie object has the following attributes:
+
++ movie_id - movie id from imdb.com
++ movie_name - movie name from imdb.com
+
+### Send search request [POST]
+
++ Parameter
+    + movie_id (required, string, `tt0816692`) ... ID of the Movie
+
++ Request (application/json)
+
+        {
+            "name": "Interstellar"
+        }
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "219db559-1ad1-4806-968f-4a78d1348de3", 
+                "imdbId": "tt0186151", 
+                "language": "RUS", 
+                "name": "Frequency", 
+                "quality": "MEDIUM", 
+                "source": "http://127.0.0.1/movies/ahsdbahsd"
+            }
+        ]
+        
++ Response 404 (text/plain)
+
+        could not find requested video source
