@@ -1,16 +1,16 @@
 FORMAT: 1A
-HOST: http://movie-parser.herokuapp.com/webapi/
+HOST: http://movie-table.herokuapp.com/webapi/
 
-# movie-parser
+# movie-table
 
-MovieParser allows users to get video http source by scanning various websites.
+MovieTable allows users to get video http source stored in table storage. If no record is found, empty json array is returned
 
-# MovieParser API Root [/]
+# MovieTable API Root [/]
 
 This resource takes in and produces JSON data. If not data matches the parameters, http error code is returned.
 
 
-## Parse [/parse/{movie_id}]
+## Retrieve data [/parse/{movie_id}]
 
 A Movie object has the following attributes:
 
@@ -32,19 +32,13 @@ A Movie object has the following attributes:
 
         [
             {
+                "id": "219db559-1ad1-4806-968f-4a78d1348de3", 
                 "imdbId": "tt0186151", 
                 "language": "RUS", 
                 "name": "Frequency", 
-                "quality": "HD", 
+                "quality": "MEDIUM", 
                 "source": "http://127.0.0.1/movies/ahsdbahsd"
-            }, 
-            {
-                "imdbId": "tt0186151", 
-                "language": "ENG", 
-                "name": "Frequency", 
-                "quality": "HD", 
-                "source": "http://127.0.0.1/movies/gfntrg"
-            },
+            }
         ]
         
 + Response 404 (text/plain)
