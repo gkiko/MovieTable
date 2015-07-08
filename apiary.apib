@@ -1,0 +1,52 @@
+FORMAT: 1A
+HOST: http://movie-parser.herokuapp.com/webapi/
+
+# movie-parser
+
+MovieParser allows users to get video http source by scanning various websites.
+
+# MovieParser API Root [/]
+
+This resource takes in and produces JSON data. If not data matches the parameters, http error code is returned.
+
+
+## Parse [/parse/{movie_id}]
+
+A Movie object has the following attributes:
+
++ movie_id - movie id from imdb.com
++ movie_name - movie name from imdb.com
+
+### Send search request [POST]
+
++ Parameter
+    + movie_id (required, string, `tt0816692`) ... ID of the Movie
+
++ Request (application/json)
+
+        {
+            "name": "Interstellar"
+        }
+
++ Response 200 (application/json)
+
+        [
+            {
+                "imdbId": "tt0186151", 
+                "language": "RUS", 
+                "name": "Frequency", 
+                "quality": "HD", 
+                "source": "http://127.0.0.1/movies/ahsdbahsd"
+            }, 
+            {
+                "imdbId": "tt0186151", 
+                "language": "ENG", 
+                "name": "Frequency", 
+                "quality": "HD", 
+                "source": "http://127.0.0.1/movies/gfntrg"
+            },
+        ]
+        
++ Response 404 (text/plain)
+
+        could not find requested video source
