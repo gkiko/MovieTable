@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Path("movies")
 @Consumes({MediaType.APPLICATION_JSON})
@@ -53,11 +54,14 @@ public class MovieService {
             movieDos.add(fromDb.toDo());
         }
         if (movieDos.isEmpty()) {
-            MovieDo mDo = null;
+            MovieDo[] mDoList = null;
             try {
-                mDo = requestMovieSearch(id, movieDo.getName());
-                getRepo().save(MovieItem.fromDo(mDo));
-                movieDos.add(mDo);
+                mDoList = requestMovieSearch(id, movieDo.getName());
+                for (MovieDo mDo : mDoList) {
+                    mDo.setId(UUID.randomUUID().toString());
+                    getRepo().save(MovieItem.fromDo(mDo));
+                    movieDos.add(mDo);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -65,7 +69,7 @@ public class MovieService {
         return movieDos;
     }
 
-    private MovieDo requestMovieSearch(String id, String movieName) throws IOException {
+    private MovieDo[] requestMovieSearch(String id, String movieName) throws IOException {
         HttpClient c = new DefaultHttpClient();
         HttpPost p = new HttpPost(movieParserApi + id);
 
@@ -77,7 +81,7 @@ public class MovieService {
         String line = readFully(rd);
 
         ObjectMapper mapper = new ObjectMapper();
-        MovieDo mDo = mapper.readValue(line, MovieDo.class);
+        MovieDo[] mDo = mapper.readValue(line, MovieDo[].class);
         return mDo;
     }
 
