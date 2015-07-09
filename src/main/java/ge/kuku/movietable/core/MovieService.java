@@ -35,28 +35,18 @@ public class MovieService {
     }
 
     @GET
-    public List<MovieDo> read() {
-        final ArrayList<MovieDo> result = new ArrayList<MovieDo>();
-        MovieDo movieDo = new MovieDo();
-        movieDo.setSource("http://example.com/movie/nasjdhiu13h12g");
-        movieDo.setLanguage("JP");
-        movieDo.setQuality("HD");
-        result.add(movieDo);
-        return result;
-    }
-
-    @POST
     @Path("{id}")
-    public List<MovieDo> retrieve(@PathParam("id") String id, @NotNull @Valid MovieDo movieDo) throws IOException {
+    public List<MovieDo> retrieve(@PathParam("id") String id, @QueryParam("movie_name") String movieName) throws IOException {
         List<MovieDo> movieDos = new ArrayList<>();
         List<MovieItem> items = getRepo().retrieve(id);
         for (MovieItem fromDb : items) {
             movieDos.add(fromDb.toDo());
         }
+
         if (movieDos.isEmpty()) {
             MovieDo[] mDoList = null;
             try {
-                mDoList = requestMovieSearch(id, movieDo.getName());
+                mDoList = requestMovieSearch(id, movieName);
                 for (MovieDo mDo : mDoList) {
                     mDo.setId(UUID.randomUUID().toString());
                     getRepo().save(MovieItem.fromDo(mDo));
