@@ -18,5 +18,10 @@
         <url-pattern>/webapi/*</url-pattern>
     </servlet-mapping>
 
+    <listener>
+        <listener-class>
+            ge.kuku.movietable.core.InitListener
+        </listener-class>
+    </listener>
 
 </web-app>

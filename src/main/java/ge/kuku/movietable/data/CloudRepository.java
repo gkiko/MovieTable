@@ -11,7 +11,8 @@ import java.util.List;
 
 public class CloudRepository implements Repository {
 
-    static AmazonDynamoDBClient client = new AmazonDynamoDBClient(new EnvironmentVariableCredentialsProvider());
+    private static AmazonDynamoDBClient client =
+            new AmazonDynamoDBClient(new EnvironmentVariableCredentialsProvider());
 
     public CloudRepository() {
         client.setRegion(Region.getRegion(Regions.US_WEST_2));
