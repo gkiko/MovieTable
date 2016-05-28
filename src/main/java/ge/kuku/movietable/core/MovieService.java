@@ -1,7 +1,6 @@
 package ge.kuku.movietable.core;
 
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import ge.kuku.movietable.data.CloudRepository;
@@ -10,7 +9,6 @@ import ge.kuku.movietable.data.Repository;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +18,7 @@ import java.util.UUID;
 @Produces({MediaType.APPLICATION_JSON})
 public class MovieService {
 
-    private String MOVIE_PARSER_API = "http://movie-parser.herokuapp.com/webapi/movies/";
+    private String MOVIE_PARSER_API = "http://192.168.3.144:8080/webapi/movies/";//"http://movie-parser.herokuapp.com/webapi/movies/";
 
     private Repository getRepo() {
         return new CloudRepository();
@@ -28,23 +26,47 @@ public class MovieService {
 
     @GET
     @Path("{id}")
-    public List<MovieDo> retrieve(@PathParam("id") String id,
-                                  @QueryParam("movie_name") String movieName) {
+    public List<MovieDo> retrieve(@PathParam("id") String id) {
         List<MovieDo> movieDos = new ArrayList<>();
         List<MovieItem> items = getRepo().retrieve(id);
+        List<MovieItem> deleted = new ArrayList<>();
         for (MovieItem fromDb : items) {
-            if (fromDb.isAlive())
+            if (isAlive(fromDb))
                 movieDos.add(fromDb.toDo());
+            else deleted.add(fromDb);
         }
 
         if (movieDos.isEmpty()) {
             for (MovieDo mDo : requestMovieSearch(id)) {
-                mDo.setId(UUID.randomUUID().toString());
-                getRepo().save(MovieItem.fromDo(mDo));
+                MovieItem curr = MovieItem.fromDo(mDo);
+                int index = deleted.indexOf(curr);
+                if (index != -1) {
+                    MovieItem tmp = deleted.get(index);
+                    mDo.setId(tmp.getId());
+                    curr = MovieItem.fromExisting(tmp, mDo);
+                    getRepo().save(curr);
+                }
+                else {
+                    mDo.setId(UUID.randomUUID().toString());
+                }
+                if (!items.contains(curr)) {
+                    getRepo().save(curr);
+                }
                 movieDos.add(mDo);
             }
         }
         return movieDos;
+    }
+
+    public boolean isAlive(MovieItem item) {
+        long curr = System.currentTimeMillis();
+        long old;
+        try {
+            old = Long.parseLong(item.getExpireTime());
+        } catch (Exception e){
+            return false;
+        }
+        return curr > old;
     }
 
     private MovieDo[] requestMovieSearch(String id) {

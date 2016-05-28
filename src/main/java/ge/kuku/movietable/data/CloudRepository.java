@@ -16,6 +16,7 @@ public class CloudRepository implements Repository {
 
     public CloudRepository() {
         client.setRegion(Region.getRegion(Regions.US_WEST_2));
+        client.withEndpoint("http://192.168.3.144:8000");
     }
 
     @Override
