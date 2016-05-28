@@ -1,5 +1,6 @@
 package ge.kuku.movietable.data;
 
+import com.amazonaws.SystemDefaultDnsResolver;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import ge.kuku.movietable.core.MovieDo;
 
@@ -10,7 +11,10 @@ public class MovieItem {
     private String language;
     private String quality;
     private String source;
+    private String expireTime;
     private String name;
+
+    private static final String EXPIRES_NAME = "expires";
 
     public static MovieItem fromDo(MovieDo movieDo) {
         MovieItem movieItem = new MovieItem();
@@ -19,7 +23,26 @@ public class MovieItem {
         movieItem.setQuality(movieDo.getQuality());
         movieItem.setSource(movieDo.getSource());
         movieItem.setName(movieDo.getName());
+        movieItem.setExpireTime(trimTime(movieDo.getSource()));
         return movieItem;
+    }
+
+    private static String trimTime(String source) {
+        String exp = source.substring(source.indexOf(EXPIRES_NAME) + EXPIRES_NAME.length()+1);
+        if (exp.contains("&"))
+            exp = exp.substring(0, exp.indexOf("&"));
+        return exp;
+    }
+
+    public boolean isAlive() {
+        long curr = System.currentTimeMillis();
+        long old = curr;
+        try {
+            old = Long.parseLong(expireTime);
+        } catch (Exception e){
+            return false;
+        }
+        return old > curr;
     }
 
     @DynamoDBRangeKey(attributeName = "id")
@@ -81,6 +104,15 @@ public class MovieItem {
     public String toString() {
         return "Movie [imdbId=" + imdbId + ", language=" + language
                 + ", quality=" + quality + ", source=" + source + "]";
+    }
+
+    public void setExpireTime(String expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    @DynamoDBAttribute(attributeName = "ExpireTime")
+    public String getExpireTime() {
+        return expireTime;
     }
 
     public MovieDo toDo() {

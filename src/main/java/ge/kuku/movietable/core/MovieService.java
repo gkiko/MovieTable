@@ -20,7 +20,7 @@ import java.util.UUID;
 @Produces({MediaType.APPLICATION_JSON})
 public class MovieService {
 
-    private String MOVIE_PARSER_API = "http://movie-parser.herokuapp.com/webapi/parse/";
+    private String MOVIE_PARSER_API = "http://movie-parser.herokuapp.com/webapi/movies/";
 
     private Repository getRepo() {
         return new CloudRepository();
@@ -33,11 +33,12 @@ public class MovieService {
         List<MovieDo> movieDos = new ArrayList<>();
         List<MovieItem> items = getRepo().retrieve(id);
         for (MovieItem fromDb : items) {
-            movieDos.add(fromDb.toDo());
+            if (fromDb.isAlive())
+                movieDos.add(fromDb.toDo());
         }
 
         if (movieDos.isEmpty()) {
-            for (MovieDo mDo : requestMovieSearch(id, movieName)) {
+            for (MovieDo mDo : requestMovieSearch(id)) {
                 mDo.setId(UUID.randomUUID().toString());
                 getRepo().save(MovieItem.fromDo(mDo));
                 movieDos.add(mDo);
@@ -46,16 +47,16 @@ public class MovieService {
         return movieDos;
     }
 
-    private MovieDo[] requestMovieSearch(String id, String movieName) {
+    private MovieDo[] requestMovieSearch(String id) {
         HttpResponse<MovieDo[]> response = null;
         try {
-            response = Unirest.post(String.format("%s%s", MOVIE_PARSER_API, id))
-                    .header("Content-Type", "application/json")
-                    .body(new JsonNode(String.format("{name: %s}", movieName)))
+            response = Unirest.get(String.format("%s%s", MOVIE_PARSER_API, id))
                     .asObject(MovieDo[].class);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
+        if (response == null)
+            return null;
         return response.getBody();
     }
 
