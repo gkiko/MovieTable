@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Produces({MediaType.APPLICATION_JSON})
 public class MovieService {
 
-    private String MOVIE_PARSER_API = "http://movie-parser.herokuapp.com/webapi/movies/";
+    private String MOVIE_PARSER_API = "http://movie-parser.herokuapp.com/movies/";
 
     private Repository getRepo() {
         return new CloudRepository();
