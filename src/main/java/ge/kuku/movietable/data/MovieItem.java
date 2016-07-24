@@ -10,7 +10,10 @@ public class MovieItem {
     private String language;
     private String quality;
     private String source;
+    private String expireTime;
     private String name;
+
+    private static final String EXPIRES_NAME = "expires";
 
     public static MovieItem fromDo(MovieDo movieDo) {
         MovieItem movieItem = new MovieItem();
@@ -19,7 +22,34 @@ public class MovieItem {
         movieItem.setQuality(movieDo.getQuality());
         movieItem.setSource(movieDo.getSource());
         movieItem.setName(movieDo.getName());
+        movieItem.setExpireTime(trimTime(movieDo.getSource()));
         return movieItem;
+    }
+
+    public static MovieItem fromExisting(MovieItem item, MovieDo movieDo) {
+        item.setImdbId(movieDo.getImdbId());
+        item.setLanguage(movieDo.getLanguage());
+        item.setQuality(movieDo.getQuality());
+        item.setSource(movieDo.getSource());
+        item.setName(movieDo.getName());
+        item.setExpireTime(trimTime(movieDo.getSource()));
+        return item;
+    }
+
+    private static String trimTime(String source) {
+        String exp = source.substring(source.indexOf(EXPIRES_NAME) + EXPIRES_NAME.length()+1);
+        if (exp.contains("&"))
+            exp = exp.substring(0, exp.indexOf("&"));
+        return exp;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        MovieItem neigh = (MovieItem)obj;
+
+        return getImdbId().equals(neigh.getImdbId()) &&
+                getLanguage().equals(neigh.getLanguage()) &&
+                getQuality().equals(neigh.getQuality());
     }
 
     @DynamoDBRangeKey(attributeName = "id")
@@ -77,10 +107,13 @@ public class MovieItem {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Movie [imdbId=" + imdbId + ", language=" + language
-                + ", quality=" + quality + ", source=" + source + "]";
+    @DynamoDBAttribute(attributeName = "Expire")
+    public String getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(String expireTime) {
+        this.expireTime = expireTime;
     }
 
     public MovieDo toDo() {
@@ -93,4 +126,5 @@ public class MovieItem {
         movieDo.setName(name);
         return movieDo;
     }
+
 }
