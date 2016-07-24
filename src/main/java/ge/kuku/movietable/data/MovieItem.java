@@ -1,6 +1,5 @@
 package ge.kuku.movietable.data;
 
-import com.amazonaws.SystemDefaultDnsResolver;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import ge.kuku.movietable.core.MovieDo;
 
@@ -127,4 +126,5 @@ public class MovieItem {
         movieDo.setName(name);
         return movieDo;
     }
+
 }
