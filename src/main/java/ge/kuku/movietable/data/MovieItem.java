@@ -22,18 +22,11 @@ public class MovieItem {
         movieItem.setQuality(movieDo.getQuality());
         movieItem.setSource(movieDo.getSource());
         movieItem.setName(movieDo.getName());
-        movieItem.setExpireTime(trimTime(movieDo.getSource()));
-        return movieItem;
-    }
 
-    public static MovieItem fromExisting(MovieItem item, MovieDo movieDo) {
-        item.setImdbId(movieDo.getImdbId());
-        item.setLanguage(movieDo.getLanguage());
-        item.setQuality(movieDo.getQuality());
-        item.setSource(movieDo.getSource());
-        item.setName(movieDo.getName());
-        item.setExpireTime(trimTime(movieDo.getSource()));
-        return item;
+        String timeout = trimTime(movieDo.getSource());
+        timeout = padTime(timeout);
+        movieItem.setExpireTime(timeout);
+        return movieItem;
     }
 
     private static String trimTime(String source) {
@@ -41,6 +34,12 @@ public class MovieItem {
         if (exp.contains("&"))
             exp = exp.substring(0, exp.indexOf("&"));
         return exp;
+    }
+
+    private static String padTime(String time) {
+        if (time.length() == 13)
+            return time;
+        return String.format("%-13s", time).replace(' ', '0');
     }
 
     @Override
