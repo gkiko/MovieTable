@@ -1,0 +1,36 @@
+body {
+    font-family: "Trebuchet MS", "Helvetica", "Arial", "Verdana", "sans-serif";
+    font-size: 85%;
+}
+
+#search-button {
+    overflow: hidden;
+    float: right;
+    line-height: 1.5em;
+    margin: 0;
+    background: #eee;
+    border: 1px solid #aaa;
+    border-radius: .2em;
+}
+
+span {
+    display: block;
+    overflow: hidden;
+    padding: 0 1em;
+}
+
+input {
+    float: right;
+    border: 1px solid black;
+    width: 100%;
+    font-size: 1em;
+    height: 1.5em;
+    line-height: 1.5em;
+}
+
+.search {
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    padding: 1em;
+}

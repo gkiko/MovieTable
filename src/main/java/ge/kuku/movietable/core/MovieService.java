@@ -70,8 +70,8 @@ public class MovieService {
 
     private boolean expired(MovieItem item) {
         long curr = System.currentTimeMillis();
-        long old = Long.parseLong(item.getExpireTime());
-        return curr < old;
+        long expireTime = Long.parseLong(item.getExpireTime());
+        return expireTime < curr;
     }
 
     private List<MovieDo> requestMovieSearch(String id) {
