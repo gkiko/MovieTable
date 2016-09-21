@@ -4,7 +4,15 @@ function doSearch(imdbId) {
     $.ajax({
         url: serviceUri + "/" + imdbId,
         type: 'GET',
-        contentType: 'application/json'
+        contentType: 'application/json',
+        beforeSend: function(){
+            $(".loader").css("animation-iteration-count", "infinite");
+            $(".loader").css("display", "inline");
+        },
+        complete: function(){
+            $(".loader").css("animation-iteration-count", 0);
+            $(".loader").css("display", "none");
+        }
     })
         .done(function (data, status, xhr) {
             appendElement(data);
@@ -27,6 +35,13 @@ function appendElement(movieList) {
     }
 }
 
+var re = new RegExp("tt[0-9]{7}");
+
+function extractImdbId(value) {
+    var matchArr = value.match(re);
+    return matchArr[0];
+}
+
 ///+++ on load +++
 
 $(function () {
@@ -35,6 +50,8 @@ $(function () {
         function () {
             $("#movie-list").empty();
             var value = $("#text-input").val();
+            value = extractImdbId(value);
+            $("#imdb-id").text(value);
             doSearch(value);
         });
 
