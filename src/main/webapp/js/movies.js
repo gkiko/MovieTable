@@ -22,14 +22,7 @@ function doSearch(imdbId) {
 function appendElement(movieList) {
     for (var i = 0; i < movieList.length; i++) {
         var movie = movieList[i];
-        var li = $("<li>")
-            .append(
-                $("<a>")
-                    .text(movie.language + " " + movie.quality)
-                    .attr("href", movie.source)
-                    .attr("id", movie.id)
-                    .attr("target", "_blank")
-            );
+        var li = "<li><button class='cast-button' onclick='openChromecastPanel(\""+movie.source+"\")'>Cast </button><a href='" + movie.source + "' id='"+movie.id+"' target='_blank'>"+movie.language + " " + movie.quality+"</a>";
         $("#movie-list")
             .append(li)
     }
@@ -40,6 +33,11 @@ var re = new RegExp("tt[0-9]{7}");
 function extractImdbId(value) {
     var matchArr = value.match(re);
     return matchArr[0];
+}
+
+function openChromecastPanel(movie) {
+	$("#url").val(movie);
+	$("#cast").show();
 }
 
 ///+++ on load +++
