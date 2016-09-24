@@ -23,7 +23,7 @@ function appendElement(movieList) {
 	var radio = "";
     for (var i = 0; i < movieList.length; i++) {
         var movie = movieList[i];
-        radio += "<label><input type='radio' onclick='showButtons()' name='movie' value='" + movie.source + "'>" + movie.language + " " + movie.quality +"</input></label><br/>";
+        radio += "<label><input type='radio' id='" + movie.id + "' onclick='showButtons()' name='movie' value='" + movie.source + "'>" + movie.language + " " + movie.quality +"</input></label><br/>";
         var li = "<li><a href='" +  + "' id='"+movie.id+"' target='_blank'>"+movie.language + " " + movie.quality+"</a>";
         $("#movie-radio")
         .append(radio)
