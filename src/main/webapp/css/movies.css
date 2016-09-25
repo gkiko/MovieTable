@@ -1,104 +1,37 @@
 body {
     font-family: "Trebuchet MS", "Helvetica", "Arial", "Verdana", "sans-serif";
     font-size: 85%;
-    min-height: 100%;
-    background-repeat:no-repeat;
-    background: #c0c0c0; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#b4b4b1, #e3e2dd) fixed; /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#b4b4b1, #e3e2dd) fixed; /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#b4b4b1, #e3e2dd) fixed; /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#b4b4b1, #e3e2dd) fixed; /* Standard syntax */
 }
 
-.main-search-button {
+#search-button {
     overflow: hidden;
     float: right;
     line-height: 1.5em;
     margin: 0;
-    height:30px;
-    width:100px;
-    border: 0;
-    padding: 0;
-    font: bold 15px/30px 'lucida sans', 'trebuchet MS', 'Tahoma';
-    background: #F5DE50;
-    -moz-border-radius: 0 3px 3px 0;
-    -webkit-border-radius: 0 3px 3px 0;
-    border-radius: 0 3px 3px 0;      
-    text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
-}
-
-.main-search-button:hover{		
-    background: #edd657;
-}	
-  
-.main-search-button:active{
-    background: #e0c947;    
+    background: #eee;
+    border: 1px solid #aaa;
+    border-radius: .2em;
 }
 
 span {
     display: block;
     overflow: hidden;
+    padding: 0 1em;
 }
 
-.main-search-input {
-    float: right;
+input {
+    border: 1px solid black;
     width: 100%;
     font-size: 1em;
     height: 1.5em;
     line-height: 1.5em;
-    height: 30px;
-    font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
-    border: 0;
-    background: #ffffff;
-    -moz-border-radius: 3px 0 0 3px;
-    -webkit-border-radius: 3px 0 0 3px;
-    border-radius: 3px 0 0 3px;   
-}
-
-    .main-search-input::-webkit-input-placeholder {
-       color: #999;
-       font-weight: normal;
-       font-style: italic;
-    }
-    
-    .main-search-input:-moz-placeholder {
-        color: #999;
-        font-weight: normal;
-        font-style: italic;
-    }
-    
-    .main-search-input:-ms-input-placeholder {
-        color: #999;
-        font-weight: normal;
-        font-style: italic;
-    } 
-
-.cast-button {
-	height:20px;
-    width:50px;
-    border: 0;
-    padding: 0;
-    font: bold 15px/20px 'lucida sans', 'trebuchet MS', 'Tahoma';
-    background: #F5DE50;
-    -moz-border-radius: 0 3px 3px 0;
-    -webkit-border-radius: 0 3px 3px 0;
-    border-radius: 0 3px 3px 0;      
-    text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
-}
-
-.cast-button:hover{		
-    background: #edd657;
-}	
-  
-.cast-button:active{
-    background: #e0c947;    
 }
 
 .search {
     white-space: nowrap;
     overflow: hidden;
     display: block;
-    padding: 10px;
+    padding: 1em;
 }
 
 .loader {
@@ -115,8 +48,4 @@ span {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-.imdb-id {
-	padding-left: 20px;
 }
