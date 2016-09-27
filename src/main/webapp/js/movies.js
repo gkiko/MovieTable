@@ -22,10 +22,16 @@ function doSearch(imdbId) {
 function appendElement(movieList) {
     for (var i = 0; i < movieList.length; i++) {
         var movie = movieList[i];
-        var li = "<li><button class='cast-button' onclick='openChromecastPanel(\""+movie.source+"\")'>Cast </button><a href='" + movie.source + "' id='"+movie.id+"' target='_blank'>"+movie.language + " " + movie.quality+"</a>";
-        $("#movie-list")
-            .append(li)
+        var radio = "<input style='width:40px;' type='radio' onclick='showButtons()' name='movie' value='" + movie.source + "'><a href='" + movie.source + "' id='"+movie.id+"' target='_blank'>"+movie.language + " " + movie.quality+"</a></input><br/>";
+        $("#movie-radio")
+        .append(radio)
     }
+    
+}
+
+function showButtons() {
+	$("#cast-button").show();
+    $("#play-button").show();
 }
 
 var re = new RegExp("tt[0-9]{7}");
@@ -35,9 +41,14 @@ function extractImdbId(value) {
     return matchArr[0];
 }
 
-function openChromecastPanel(movie) {
+function openChromecastPanel() {
+	var movie = $('input[name=movie]:checked').val();
 	$("#url").val(movie);
 	$("#cast").show();
+}
+
+function playMovie() {
+	window.open($('input[name=movie]:checked').val());
 }
 
 ///+++ on load +++
