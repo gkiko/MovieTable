@@ -1,16 +1,15 @@
 package ge.kuku.movietable.data;
 
+import java.util.List;
+
 import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
-import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig.Builder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig.SaveBehavior;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
-
-import java.util.List;
 
 public class CloudRepository implements Repository {
 
@@ -25,7 +24,9 @@ public class CloudRepository implements Repository {
     @Override
     public void save(MovieItem item) {
         DynamoDBMapper mapper = new DynamoDBMapper(client);
-        mapper.save(item, new DynamoDBMapperConfig(DynamoDBMapperConfig.SaveBehavior.UPDATE_SKIP_NULL_ATTRIBUTES));
+        Builder builder = DynamoDBMapperConfig.builder();
+        builder.setSaveBehavior(SaveBehavior.UPDATE_SKIP_NULL_ATTRIBUTES);
+        mapper.save(item, builder.build()); 
     }
 
     @Override

@@ -22,9 +22,21 @@ function doSearch(imdbId) {
 function appendElement(movieList) {
     for (var i = 0; i < movieList.length; i++) {
         var movie = movieList[i];
-        var radio = "<input style='width:40px;' type='radio' onclick='showButtons()' name='movie' value='" + movie.source + "'><a href='" + movie.source + "' id='"+movie.id+"' target='_blank'>"+movie.language + " " + movie.quality+"</a></input><br/>";
+        var radio = $("<input type='radio' onclick='showButtons()'>")
+        .attr("class", "movie-radio")
+        .attr("name", 'movie')
+        .attr("value", movie.source);
         $("#movie-radio")
         .append(radio)
+        
+        var movieLink = $("<a>")
+        .text(movie.language + " " + movie.quality)
+        .attr("href", movie.source)
+        .attr("id", movie.id)
+        .attr("target", "_blank")
+        .append("<br/>");
+        $("#movie-radio")
+        .append(movieLink)
     }
     
 }
