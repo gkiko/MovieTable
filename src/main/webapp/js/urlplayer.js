@@ -58,11 +58,20 @@ function startPlayback() {
     return;
   }
   $("#player_duration").html("00:00:00");
-  var url = decodeURIComponent($('#url').val());
-  var contentType = getContentType(url);
-  player.loadMedia(url, contentType);
-  $('#player_now_playing').html(url.split(/[\\/]/).pop());
-  $('#controls').show();
+  
+  $.ajax({
+		url : 'UrlDestinationServlet',
+		data : {
+			movieUrl : $('#url').val()
+		},
+		success : function(responseText) {
+		  var url = decodeURIComponent(responseText);
+		  var contentType = getContentType(url);
+		  player.loadMedia(url, contentType);
+		  $('#player_now_playing').html(url.split(/[\\/]/).pop());
+		  $('#controls').show();
+		}
+	});
 }
 
 function pause() {
