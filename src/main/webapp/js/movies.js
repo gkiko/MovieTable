@@ -27,7 +27,7 @@ function appendElement(movieList) {
         .attr("name", 'movie')
         .attr("value", movie.source);
         $("#movie-radio")
-        .append(radio)
+        .append(radio);
         
         var movieLink = $("<a>")
         .text(movie.language + " " + movie.quality)
@@ -36,7 +36,7 @@ function appendElement(movieList) {
         .attr("target", "_blank")
         .append("<br/>");
         $("#movie-radio")
-        .append(movieLink)
+        .append(movieLink);
     }
     
 }

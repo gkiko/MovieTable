@@ -27,6 +27,7 @@ function launchApp() {
 
 function getContentType(url) {
   var ext = url.split('.').pop();
+  console.log(ext);
   var formats = [
     {ext: 'mkv', type: 'video'},
     {ext: 'webm', type: 'video'},
@@ -40,8 +41,12 @@ function getContentType(url) {
     {ext: 'bmp', type: 'image'},
     {ext: 'webp', type: 'image'}
   ];
+  
+  var movieRegex = new RegExp('(?:.(?![^a-zA-Z0-9]))(mkv|mp4|webm|m4v|m4a|jpeg|jpg|gif|png|bmp|webp)');
+  var result = movieRegex.exec(ext);
+  
   for (var i = 0; i < formats.length; i++) {
-    if (formats[i].ext == ext) {
+    if (formats[i].ext == result[1]) {
       return formats[i].type + "/" + ext;
     }
   }
