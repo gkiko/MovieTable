@@ -27,7 +27,6 @@ function launchApp() {
 
 function getContentType(url) {
   var ext = url.split('.').pop();
-  console.log(ext);
   var formats = [
     {ext: 'mkv', type: 'video'},
     {ext: 'webm', type: 'video'},
@@ -46,7 +45,7 @@ function getContentType(url) {
   var result = movieRegex.exec(ext);
   
   for (var i = 0; i < formats.length; i++) {
-    if (formats[i].ext == result[1]) {
+    if (formats[i].ext == movieRegex.exec(ext)) {
       return formats[i].type + "/" + ext;
     }
   }
@@ -58,6 +57,7 @@ function startPlayback() {
   if (player.session == null || $('#url').val().trim() == "") {
     return;
   }
+  $("#player_duration").html("00:00:00");
   var url = decodeURIComponent($('#url').val());
   var contentType = getContentType(url);
   player.loadMedia(url, contentType);

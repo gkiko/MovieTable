@@ -15,6 +15,7 @@ function doSearch(imdbId) {
         }
     })
         .done(function (data, status, xhr) {
+        	$("#movie-radio").empty();
             appendElement(data);
         });
 }
