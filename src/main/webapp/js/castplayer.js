@@ -184,6 +184,8 @@ CastPlayer.prototype.onRequestSessionSuccess = function(e) {
   $('#modal_play_text').html("Play on Chromecast");
   this.deviceState = DEVICE_STATE.ACTIVE;
   this.session.addUpdateListener(this.sessionUpdateListener.bind(this));
+  
+  startPlayback();
 };
 
 CastPlayer.prototype.onLaunchError = function() {

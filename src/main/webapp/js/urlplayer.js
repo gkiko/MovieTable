@@ -22,7 +22,11 @@ function getUrlParameter(sParam) {
 
 
 function launchApp() {
-  player.launchApp();
+	var movie = $('input[name=movie]:checked').val();
+	$("#movie-name").val($('input[name=movie]:checked'));
+	$("#url").val(movie);
+	$("#cast").show();
+	player.launchApp();
 }
 
 function getContentType(url) {
@@ -54,11 +58,10 @@ function getContentType(url) {
 }
 
 function startPlayback() {
-  if (player.session == null || $('#url').val().trim() == "") {
+  if(player.session == null || $('#url').val().trim() == "") {
     return;
   }
   $("#player_duration").html("00:00:00");
-  
   $.ajax({
 		url : 'UrlDestinationServlet',
 		data : {
@@ -68,7 +71,7 @@ function startPlayback() {
 		  var url = decodeURIComponent(responseText);
 		  var contentType = getContentType(url);
 		  player.loadMedia(url, contentType);
-		  $('#player_now_playing').html(url.split(/[\\/]/).pop());
+		  $('#player_now_playing').html($("#movie-name").val());
 		  $('#controls').show();
 		}
 	});

@@ -25,7 +25,7 @@ function appendElement(movieList) {
         var movie = movieList[i];
         var radio = $("<input type='radio' onclick='showButtons()'>")
         .attr("class", "movie-radio")
-        .attr("name", 'movie')
+        .attr("name", "movie")
         .attr("value", movie.source);
         $("#movie-radio")
         .append(radio);
@@ -39,7 +39,6 @@ function appendElement(movieList) {
         $("#movie-radio")
         .append(movieLink);
     }
-    
 }
 
 function showButtons() {
@@ -52,16 +51,6 @@ var re = new RegExp("tt[0-9]{7}");
 function extractImdbId(value) {
     var matchArr = value.match(re);
     return matchArr[0];
-}
-
-function openChromecastPanel() {
-	var movie = $('input[name=movie]:checked').val();
-	$("#url").val(movie);
-	$("#cast").show();
-}
-
-function playMovie() {
-	window.open($('input[name=movie]:checked').val());
 }
 
 ///+++ on load +++

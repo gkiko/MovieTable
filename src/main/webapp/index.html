@@ -29,8 +29,9 @@
     <h2 id="imdb-id" class="imdb-id"></h2>
     <div class="loader" style="display: none;"></div>
     <form id="movie-radio"></form>
-    <button id="cast-button" hidden="hidden" onclick="openChromecastPanel()">Cast</button>
-    <button id="play-button" onclick="playMovie()" hidden="hidden">Play</button>
+    <button id="cast-button" hidden="hidden" onclick="launchApp()">Cast</button>
+    <input type="hidden" id="url">
+    <input type="hidden" id="movie-name">
     
     <div id="cast" style="display: none">
     	<br/>
@@ -61,29 +62,6 @@
         <button onclick="seek(true);"> Forward </button> &nbsp;
       </div>
       <br/><br/>
-      <div class="row">
-        <div>
-          <h4 style="padding-left:20px">4 simple steps to playback video on Chromecast</h4>
-          <br/>
-          <input type="hidden" id="url">
-          <ol>
-            <li id="extension" style="margin-bottom:10px;">
-              Checking for Chromecast Extension. If you know you don't have the extension, 
-              <a href="https://chrome.google.com/webstore/detail/google-cast/boadgeojelhgndaghljhdicfkmllpafd" target="_blank">
-              Click here to Install it</a> and then reload this page.
-            </li>
-            <li style="margin-bottom:10px;">
-              <button onclick="launchApp();" id="chromecast">Click here to connect to your Chromecast
-              </button>
-            </li>
-            <li style="margin-bottom:10px;">
-              <button onclick="startPlayback();" id="modal_play" type="button">
-                <span id="modal_play_text">Connect to Chromecast to Start Playback</span>
-              </button>
-            </li>
-          </ol>
-        </div>
-      </div>
     </div>
 </div>
 
