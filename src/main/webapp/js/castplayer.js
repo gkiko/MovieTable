@@ -284,7 +284,7 @@ CastPlayer.prototype.onMediaDiscovered = function(how, mediaSession) {
     if ($('#url').val() == "") {
       $('#url').val(this.currentMediaUrl);
     }
-    $('#player_now_playing').html(this.currentMediaUrl.split(/[\\/]/).pop());
+    $('#player_now_playing').html($("#imdb-id").text());
     $('#controls').show();
   }
 

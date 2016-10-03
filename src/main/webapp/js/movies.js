@@ -38,12 +38,13 @@ function appendElement(movieList) {
         .append("<br/>");
         $("#movie-radio")
         .append(movieLink);
+        
+        $("#imdb-id").text(movie.name);
     }
 }
 
 function showButtons() {
 	$("#cast-button").show();
-    $("#play-button").show();
 }
 
 var re = new RegExp("tt[0-9]{7}");

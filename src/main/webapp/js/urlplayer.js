@@ -71,7 +71,7 @@ function startPlayback() {
 		  var url = decodeURIComponent(responseText);
 		  var contentType = getContentType(url);
 		  player.loadMedia(url, contentType);
-		  $('#player_now_playing').html($("#movie-name").val());
+		  $('#player_now_playing').html($("#imdb-id").text());
 		  $('#controls').show();
 		}
 	});
